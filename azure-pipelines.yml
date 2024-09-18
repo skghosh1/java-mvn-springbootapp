@@ -22,6 +22,7 @@ steps:
  
 
 - script: 
+    export JAVA_HOME=/usr/lib/jvm/temurin-11-jdk-amd64
     echo $JAVA_HOME
   displayName: 'Set JAVA_HOME'
 
