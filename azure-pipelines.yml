@@ -48,6 +48,7 @@ steps:
       pathToPublish: '$(Build.ArtifactStagingDirectory)'
       artifactName: 'drop'
       publishLocation: 'Container'
+
 - task: DownloadBuildArtifacts@0
   inputs:
     buildType: 'current'
