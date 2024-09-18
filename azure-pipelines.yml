@@ -48,6 +48,13 @@ steps:
       pathToPublish: '$(Build.ArtifactStagingDirectory)'
       artifactName: 'drop'
       publishLocation: 'Container'
+- task: DownloadBuildArtifacts@0
+  inputs:
+    buildType: 'current'
+    downloadType: 'single'
+    artifactName: 'drop'
+    downloadPath: '$(System.DefaultWorkingDirectory)'
+
 - task: AzureWebApp@1
   inputs:
     azureSubscription: 'Free Trial(b51cce6b-b84f-4d51-8e70-291fd8cb28a0)'
