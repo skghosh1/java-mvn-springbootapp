@@ -39,6 +39,8 @@ steps:
     
 - script: 
     echo $(System.DefaultWorkingDirectory)
+    cd $(System.DefaultWorkingDirectory)
+    ls
   displayName: 'SourceFolder'
 - task: CopyFiles@2
   inputs:
