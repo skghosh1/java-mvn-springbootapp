@@ -37,3 +37,9 @@ steps:
     appType: 'webAppLinux'
     appName: 'my-web-app'
     package: '$(Build.ArtifactStagingDirectory)/**/*.war'
+- task: Docker@2
+  inputs:
+    containerRegistry: 'Azurecr1'
+    repository: 'mywebapp'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
