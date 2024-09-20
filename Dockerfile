@@ -1,3 +1,3 @@
 FROM tomcat:9.0
-COPY ./target/*.war /usr/local/tomcat/webapps
+COPY ./target/*.war /usr/local/tomcat/webapps/webapps/ROOT.war
 EXPOSE 80
