@@ -24,9 +24,8 @@ steps:
 - task: CopyFiles@2
   inputs:
       SourceFolder: '$(System.DefaultWorkingDirectory)'
-      Contents: '**/target/*.jar'
+      Contents: '**/target/*.war'
       TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
 - task: PublishBuildArtifacts@1
   inputs:
       pathToPublish: '$(Build.ArtifactStagingDirectory)'
