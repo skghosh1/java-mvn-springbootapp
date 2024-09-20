@@ -44,4 +44,4 @@ steps:
     azureSubscription: 'Free Trial(b51cce6b-b84f-4d51-8e70-291fd8cb28a0)'
     appType: 'webAppLinux'
     appName: 'my-web-app'
-    package: '$(Build.ArtifactStagingDirectory)/**/*.jar'
+    package: '$(Build.ArtifactStagingDirectory)/**/*.war'
