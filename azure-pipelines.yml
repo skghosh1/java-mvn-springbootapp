@@ -31,15 +31,30 @@ steps:
       pathToPublish: '$(Build.ArtifactStagingDirectory)'
       artifactName: 'drop'
       publishLocation: 'Container'
-#- task: AzureWebApp@1
-#  inputs:
-#    azureSubscription: 'Free Trial(b51cce6b-b84f-4d51-8e70-291fd8cb28a0)'
-#    appType: 'webAppLinux'
-#    appName: 'my-web-app'
-#    package: '$(Build.ArtifactStagingDirectory)/**/*.war'
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: 'Free Trial(b51cce6b-b84f-4d51-8e70-291fd8cb28a0)'
+    appType: 'webAppLinux'
+    appName: 'my-web-app'
+    package: '$(Build.ArtifactStagingDirectory)/**/*.war'
 - task: Docker@2
   inputs:
     containerRegistry: 'mywebappcr1'
     repository: 'mywebapp'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
+- task: SonarCloudPrepare@2
+  inputs:
+    SonarCloud: 'sonarcloud'
+    organization: 'inversion-cycles'
+    scannerMode: 'Other'
+- task: SonarCloudPublish@2
+  inputs:
+    pollingTimeoutSec: '300'
+- task: SonarCloudAnalyze@2
+  inputs:
+    jdkversion: 'JAVA_HOME_17_X64'
+- task: WhiteSource@21
+  inputs:
+    cwd: '$(System.DefaultWorkingDirectory)'
+    projectName: 'Inversion_Cycles'
