@@ -57,4 +57,4 @@ steps:
 - task: WhiteSource@21
   inputs:
     cwd: '$(System.DefaultWorkingDirectory)'
-    projectName: 'Inversion_Cycles'
+    projectName: 'FlipsoApp'
