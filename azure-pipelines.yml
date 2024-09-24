@@ -30,10 +30,6 @@ steps:
       sonar.projectKey=manghos13_FlipsoApp
       sonar.projectName=FlipsoApp
 
-- task: SonarCloudPublish@2
-  inputs:
-    pollingTimeoutSec: '300'
-
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
