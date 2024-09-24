@@ -10,6 +10,26 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+
+- checkout: self
+  fetchDepth: 0    
+- task: SonarCloudPrepare@2
+  inputs:
+    SonarCloud: 'sonarcloud'
+    organization: 'inversion-cycles'
+    scannerMode: 'Other'
+    extraProperties: |
+      # Additional properties that will be passed to the scanner,
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.projectKey=manghos13_Inversion_Cycles
+      sonar.projectName=Inversion_Cycles
+- task: SonarCloudPublish@2
+  inputs:
+    pollingTimeoutSec: '300'
+- task: SonarCloudAnalyze@2
+  inputs:
+    jdkversion: 'JAVA_HOME_17_X64'
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -43,17 +63,6 @@ steps:
     repository: 'mywebapp'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-- task: SonarCloudPrepare@2
-  inputs:
-    SonarCloud: 'sonarcloud'
-    organization: 'inversion-cycles'
-    scannerMode: 'Other'
-- task: SonarCloudPublish@2
-  inputs:
-    pollingTimeoutSec: '300'
-- task: SonarCloudAnalyze@2
-  inputs:
-    jdkversion: 'JAVA_HOME_17_X64'
 - task: WhiteSource@21
   inputs:
     cwd: '$(System.DefaultWorkingDirectory)'
