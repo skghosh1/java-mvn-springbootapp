@@ -13,6 +13,16 @@ steps:
 
 - checkout: self
   fetchDepth: 0    
+  # Step 1: Prepare the SonarCloud analysis environment
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'sonarcloud'
+    organization: 'inversion-cycles'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'manghos13_Inversion_Cycles'
+    cliProjectName: 'FlipsoApp'
+    cliSources: '.'
 - task: SonarCloudPrepare@2
   inputs:
     SonarCloud: 'sonarcloud'
@@ -63,7 +73,7 @@ steps:
     repository: 'mywebapp'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-- task: WhiteSource@21
-  inputs:
-    cwd: '$(System.DefaultWorkingDirectory)'
-    projectName: 'FlipsoApp'
+#- task: WhiteSource@21
+ # inputs:
+  #  cwd: '$(System.DefaultWorkingDirectory)'
+   # projectName: 'FlipsoApp'
