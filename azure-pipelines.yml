@@ -39,10 +39,14 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'package'
+    goals: 'clean verify sonar:sonar'
+
 - task: SonarCloudAnalyze@2
   inputs:
-    jdkversion: 'JAVA_HOME_17_X64'   
+    jdkversion: 'JAVA_HOME'
+- task: SonarCloudPublish@2
+  inputs:
+    pollingTimeoutSec: '300'
 - task: CopyFiles@2
   inputs:
       SourceFolder: '$(System.DefaultWorkingDirectory)'
