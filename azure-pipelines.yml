@@ -20,7 +20,7 @@ steps:
     organization: 'inversion-cycles'
     scannerMode: 'CLI'
     configMode: 'manual'
-    cliProjectKey: 'manghos13_FlipsoApp'
+    cliProjectKey: '2406f40a34c461b897d99ebc8b4e0d91855f4f3b'
     cliProjectName: 'FlipsoApp'
     cliSources: '.'
     extraProperties: |
@@ -29,23 +29,11 @@ steps:
       # sonar.exclusions=**/*.bin
       sonar.projectKey=manghos13_FlipsoApp
       sonar.projectName=FlipsoApp
-- task: SonarCloudPrepare@2
-  inputs:
-    SonarCloud: 'sonarcloud'
-    organization: 'inversion-cycles'
-    scannerMode: 'Other'
-    extraProperties: |
-      # Additional properties that will be passed to the scanner,
-      # Put one key=value per line, example:
-      # sonar.exclusions=**/*.bin
-      sonar.projectKey=manghos13_Inversion_Cycles
-      sonar.projectName=Inversion_Cycles
+
 - task: SonarCloudPublish@2
   inputs:
     pollingTimeoutSec: '300'
-- task: SonarCloudAnalyze@2
-  inputs:
-    jdkversion: 'JAVA_HOME_17_X64'
+
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -56,7 +44,9 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
-    
+- task: SonarCloudAnalyze@2
+  inputs:
+    jdkversion: 'JAVA_HOME_17_X64'   
 - task: CopyFiles@2
   inputs:
       SourceFolder: '$(System.DefaultWorkingDirectory)'
