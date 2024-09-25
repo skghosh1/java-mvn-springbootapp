@@ -11,25 +11,6 @@ pool:
 
 steps:
 
-- checkout: self
-  fetchDepth: 0    
-  # Step 1: Prepare the SonarCloud analysis environment
-- task: SonarCloudPrepare@1
-  inputs:
-    SonarCloud: 'sonarcloud1'
-    organization: 'inversion-cycles'
-    scannerMode: 'CLI'
-    configMode: 'manual'
-    cliProjectKey: '2406f40a34c461b897d99ebc8b4e0d91855f4f3b'
-    cliProjectName: 'FlipsoApp'
-    cliSources: '.'
-    extraProperties: |
-      # Additional properties that will be passed to the scanner, 
-      # Put one key=value per line, example:
-      # sonar.exclusions=**/*.bin
-      sonar.projectKey=manghos13_FlipsoApp
-      sonar.projectName=FlipsoApp
-
 - task: Maven@3
   inputs:
     mavenPomFile: 'pom.xml'
@@ -39,14 +20,8 @@ steps:
     jdkArchitectureOption: 'x64'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
-    goals: 'clean verify sonar:sonar'
+    goals: 'package'
 
-- task: SonarCloudAnalyze@2
-  inputs:
-    jdkversion: 'JAVA_HOME'
-- task: SonarCloudPublish@2
-  inputs:
-    pollingTimeoutSec: '300'
 - task: CopyFiles@2
   inputs:
       SourceFolder: '$(System.DefaultWorkingDirectory)'
@@ -69,7 +44,4 @@ steps:
     repository: 'mywebapp'
     command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
-#- task: WhiteSource@21
- # inputs:
-  #  cwd: '$(System.DefaultWorkingDirectory)'
-   # projectName: 'FlipsoApp'
+
